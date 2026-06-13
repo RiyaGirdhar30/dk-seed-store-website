@@ -1,0 +1,128 @@
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import "../styles/Products.css";
+
+function Products() {
+
+  const [products, setProducts] = useState([]);
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const [selectedCategory, setSelectedCategory] =
+    useState("All");
+
+  useEffect(() => {
+  fetch("http://localhost:7000/api/products")
+    .then((res) => res.json())
+    .then((data) => {
+      setProducts(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}, []);
+
+const filteredProducts = products.filter((product) => {
+  const matchesSearch = product.name
+    .toLowerCase()
+    .includes(searchTerm.toLowerCase());
+
+  const matchesCategory =
+    selectedCategory === "All" ||
+    product.category === selectedCategory;
+
+  return matchesSearch && matchesCategory;
+});
+
+  return (
+    <div className="products-page">
+      <h1>Our Seed Collection</h1>
+
+      <input
+        type="text"
+        placeholder="Search Seeds..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        style={{
+          padding: "12px",
+          width: "300px",
+          borderRadius: "8px",
+          border: "1px solid #ccc",
+          display: "block",
+          margin: "0 auto 30px",
+        }}
+      />
+
+      {/* Category Buttons */}
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "10px",
+          marginBottom: "30px",
+        }}
+      >
+        <button
+        className="filter-btn"
+          onClick={() => setSelectedCategory("All")}
+        >
+          All
+        </button>
+
+        <button
+        className="filter-btn"
+          onClick={() => setSelectedCategory("Grains")}
+        >
+          Grains
+        </button>
+
+        <button
+        className="filter-btn"
+          onClick={() => setSelectedCategory("Vegetables")}
+        >
+          Vegetables
+        </button>
+      </div>
+
+      <div className="products-grid">
+        {filteredProducts.map((product) => (
+          <div
+            className="product-card"
+            key={product._id}
+          >
+            <img
+              src={product.image}
+              alt={product.name}
+            />
+
+            <div className="product-info">
+            <h3>{product.name}</h3>
+
+<p>⭐ {product.rating}</p>
+
+<p>{product.stock}</p>
+
+<p
+  style={{
+    color: "red",
+    fontWeight: "bold",
+  }}
+>
+  {product.discount}
+</p>
+
+<p>₹{product.price}</p>
+
+              <Link to={`/product/${product._id}`}>
+                <button>View Details</button>
+              </Link>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default Products;
