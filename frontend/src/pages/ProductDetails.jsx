@@ -13,7 +13,7 @@ function ProductDetails() {
 
   useEffect(() => {
     fetch(
-      `http://localhost:7000/api/products/${id}`
+      `https://dk-seed-store-backend.onrender.com/api/products/${id}`
     )
       .then((res) => res.json())
       .then((data) => {

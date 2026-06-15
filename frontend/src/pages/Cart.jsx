@@ -12,7 +12,7 @@ function Cart() {
   const placeOrder = async () => {
   try {
     const response = await fetch(
-      "http://localhost:7000/api/orders",
+      "https://dk-seed-store-backend.onrender.com/api/orders",
       {
         method: "POST",
         headers: {

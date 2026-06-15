@@ -4,7 +4,7 @@ function OrderHistory() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:7000/api/orders")
+    fetch("https://dk-seed-store-backend.onrender.com/api/orders")
       .then((res) => res.json())
       .then((data) => {
         setOrders(data);

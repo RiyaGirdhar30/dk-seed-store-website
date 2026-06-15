@@ -4,7 +4,7 @@ function Orders() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:7000/api/orders")
+    fetch("https://dk-seed-store-backend.onrender.com/api/orders")
       .then((res) => res.json())
       .then((data) => {
         setOrders(data);
@@ -20,7 +20,7 @@ function Orders() {
 ) => {
   try {
     await fetch(
-      `http://localhost:7000/api/orders/${orderId}`,
+      `https://dk-seed-store-backend.onrender.com/api/orders/${orderId}`,
       {
         method: "PUT",
         headers: {
@@ -34,7 +34,7 @@ function Orders() {
     );
 
     const response = await fetch(
-      "http://localhost:7000/api/orders"
+      "https://dk-seed-store-backend.onrender.com/api/orders"
     );
 
     const data =

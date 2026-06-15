@@ -14,7 +14,7 @@ function Admin() {
   const fetchProducts = async () => {
   try {
     const response = await fetch(
-      "http://localhost:7000/api/products"
+      "https://dk-seed-store-backend.onrender.com/api/products"
     );
 
     const data = await response.json();
@@ -28,7 +28,7 @@ function Admin() {
   const handleSubmit = async () => {
   try {
     const response = await fetch(
-      "http://localhost:7000/api/products",
+      "https://dk-seed-store-backend.onrender.com/api/products",
       {
         method: "POST",
         headers: {
@@ -69,7 +69,7 @@ function Admin() {
 const deleteProduct = async (id) => {
   try {
     await fetch(
-      `http://localhost:7000/api/products/${id}`,
+      `https://dk-seed-store-backend.onrender.com/api/products/${id}`,
       {
         method: "DELETE",
       }
@@ -86,7 +86,7 @@ const deleteProduct = async (id) => {
 const updateProduct = async () => {
   try {
     await fetch(
-      `http://localhost:7000/api/products/${editingId}`,
+      `https://dk-seed-store-backend.onrender.com/api/products/${editingId}`,
       {
         method: "PUT",
         headers: {
