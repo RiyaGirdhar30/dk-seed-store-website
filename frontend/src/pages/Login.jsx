@@ -10,10 +10,21 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (
+  email === "admin@dkseed.com" &&
+  password !== "dk123"
+) {
+  alert("Invalid Admin Password");
+  return;
+}
+
+const isAdmin =
+  email === "admin@dkseed.com" &&
+  password === "dk123";
+
 const user = {
   email,
-  isAdmin:
-    email === "admin@dkseed.com",
+  isAdmin,
 };
 
 localStorage.setItem(
