@@ -35,3 +35,24 @@
   background:#ffb300;
   cursor:pointer;
 }
+
+@media (max-width: 768px){
+
+  .hero{
+    height:70vh;
+    padding:20px;
+  }
+
+  .hero h1{
+    font-size:42px;
+    line-height:1.2;
+  }
+
+  .hero p{
+    font-size:20px;
+  }
+
+  .hero button{
+    padding:12px 24px;
+  }
+}
