@@ -26,3 +26,23 @@
     margin:20px 0;
     line-height:1.6;
 }
+
+@media (max-width: 768px){
+
+    .testimonials{
+        padding:40px 20px;
+    }
+
+    .testimonials h2{
+        font-size:1.8rem;
+    }
+
+    .testimonial-container{
+        grid-template-columns:1fr;
+        gap:20px;
+    }
+
+    .testimonial-card{
+        padding:20px;
+    }
+}
