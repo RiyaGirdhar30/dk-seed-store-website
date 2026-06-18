@@ -52,3 +52,33 @@
   border-radius: 8px;
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+
+  .featured-products {
+    padding: 40px 20px;
+  }
+
+  .featured-products h2 {
+    font-size: 1.8rem;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .product-card img {
+    height: 150px;
+  }
+
+  .product-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .product-card button {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+}
