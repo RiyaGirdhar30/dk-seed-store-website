@@ -66,6 +66,16 @@ router.get("/dashboard", async (req, res) => {
         status: "Pending",
       });
 
+      const shippedOrders =
+  await Order.countDocuments({
+    status: "Shipped",
+  });
+
+const deliveredOrders =
+  await Order.countDocuments({
+    status: "Delivered",
+  });
+
     const orders =
       await Order.find();
 
@@ -80,6 +90,8 @@ router.get("/dashboard", async (req, res) => {
       totalProducts,
       totalOrders,
       pendingOrders,
+      shippedOrders,
+      deliveredOrders,
       totalRevenue,
     });
 

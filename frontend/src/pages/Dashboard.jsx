@@ -6,6 +6,8 @@ function Dashboard() {
     totalProducts: 0,
     totalOrders: 0,
     pendingOrders: 0,
+    shippedOrders: 0,
+    deliveredOrders: 0,
     totalRevenue: 0,
   });
 
@@ -75,6 +77,30 @@ function Dashboard() {
           <h2>⏳ Pending</h2>
           <h1>{stats.pendingOrders}</h1>
         </div>
+
+        <div
+  style={{
+    background: "#673ab7",
+    color: "white",
+    padding: "25px",
+    borderRadius: "12px",
+  }}
+>
+  <h2>🚚 Shipped</h2>
+  <h1>{stats.shippedOrders}</h1>
+</div>
+
+<div
+  style={{
+    background: "#4caf50",
+    color: "white",
+    padding: "25px",
+    borderRadius: "12px",
+  }}
+>
+  <h2>✅ Delivered</h2>
+  <h1>{stats.deliveredOrders}</h1>
+</div>
 
         <div
           style={{
