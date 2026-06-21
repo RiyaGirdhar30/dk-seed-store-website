@@ -49,9 +49,21 @@ const handleLogout = () => {
         <Link to="/cart">Cart ({cartItems.length})</Link>
         </li>
 
-        {user?.isAdmin && (<li>
-        <Link to="/orders">Orders</Link>
-        </li>)}
+       {user?.isAdmin && (
+  <>
+    <li>
+      <Link to="/dashboard">
+        Dashboard
+      </Link>
+    </li>
+
+    <li>
+      <Link to="/orders">
+        Orders
+      </Link>
+    </li>
+  </>
+)}
 
         <li>
   <Link to="/order-history">

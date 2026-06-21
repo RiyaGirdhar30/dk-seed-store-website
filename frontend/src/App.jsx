@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Admin from "./pages/Admin";
 import Orders from "./pages/Orders";
+import Dashboard from "./pages/Dashboard";
 import OrderHistory from "./pages/OrderHistory";
 import ProtectedAdmin from "./components/ProtectedAdmin";
 
@@ -48,6 +49,15 @@ function App() {
         <Orders />
         </ProtectedAdmin>
         }/>
+
+        <Route
+  path="/dashboard"
+  element={
+    <ProtectedAdmin>
+      <Dashboard />
+    </ProtectedAdmin>
+  }
+/>
 
         <Route path="/order-history" element={<OrderHistory />}/>
         

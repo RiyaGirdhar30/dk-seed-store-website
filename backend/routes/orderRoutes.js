@@ -1,5 +1,6 @@
 const express = require("express");
 const Order = require("../models/Order");
+const Product = require("../models/Product");
 
 const router = express.Router();
 
@@ -43,6 +44,45 @@ router.put("/:id", async (req, res) => {
       );
 
     res.json(updatedOrder);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
+// Dashboard Stats
+router.get("/dashboard", async (req, res) => {
+  try {
+
+    const totalProducts =
+      await Product.countDocuments();
+
+    const totalOrders =
+      await Order.countDocuments();
+
+    const pendingOrders =
+      await Order.countDocuments({
+        status: "Pending",
+      });
+
+    const orders =
+      await Order.find();
+
+    const totalRevenue =
+      orders.reduce(
+        (sum, order) =>
+          sum + order.totalPrice,
+        0
+      );
+
+    res.json({
+      totalProducts,
+      totalOrders,
+      pendingOrders,
+      totalRevenue,
+    });
+
   } catch (error) {
     res.status(500).json({
       message: error.message,
