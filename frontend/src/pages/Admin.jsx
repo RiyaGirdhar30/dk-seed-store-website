@@ -6,6 +6,7 @@ function Admin() {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
+  const [imageFile, setImageFile] = useState(null);
   const [rating, setRating] = useState("");
   const [discount, setDiscount] = useState("");
   const [editingId, setEditingId] =
@@ -25,7 +26,41 @@ function Admin() {
   }
 };
 
+const uploadImage = async () => {
+  if (!imageFile) return image;
+
+  const formData = new FormData();
+
+  formData.append("file", imageFile);
+  formData.append(
+    "upload_preset",
+    "dk_seed_store"
+  );
+
+  try {
+    const response = await fetch(
+      "https://api.cloudinary.com/v1_1/dsbgtqmst/image/upload",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    const data = await response.json();
+
+    return data.secure_url;
+  } catch (error) {
+    console.log(error);
+    return "";
+  }
+};
+
   const handleSubmit = async () => {
+    if (!imageFile) {
+  alert("Please select an image");
+  return;
+}
+    const imageUrl = await uploadImage();
   try {
     const response = await fetch(
       "https://dk-seed-store-backend.onrender.com/api/products",
@@ -39,7 +74,7 @@ function Admin() {
           name,
           price,
           category,
-          image,
+          image:imageUrl,
           rating,
           discount,
           stock: "In Stock",
@@ -61,6 +96,7 @@ function Admin() {
     setImage("");
     setRating("");
     setDiscount("");
+    setImageFile(null);
   } catch (error) {
     console.log(error);
   }
@@ -84,6 +120,9 @@ const deleteProduct = async (id) => {
 };
 
 const updateProduct = async () => {
+  const imageUrl = imageFile
+  ? await uploadImage()
+  : image;
   try {
     await fetch(
       `https://dk-seed-store-backend.onrender.com/api/products/${editingId}`,
@@ -97,7 +136,7 @@ const updateProduct = async () => {
           name,
           price,
           category,
-          image,
+          image:imageUrl,
           rating,
           discount,
           stock: "In Stock",
@@ -115,7 +154,7 @@ const updateProduct = async () => {
     setImage("");
     setRating("");
     setDiscount("");
-
+    setImageFile(null);
     fetchProducts();
   } catch (error) {
     console.log(error);
@@ -166,12 +205,13 @@ useEffect(() => {
 
       <br /><br />
 
-      <input
-        type="text"
-        placeholder="Image URL"
-        value={image}
-        onChange={(e) => setImage(e.target.value)}
-      />
+    <input
+  type="file"
+  accept="image/*"
+  onChange={(e) =>
+    setImageFile(e.target.files[0])
+  }
+/>
 
       <br /><br />
 
