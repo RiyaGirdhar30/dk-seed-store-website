@@ -10,6 +10,14 @@ function Cart() {
   );
 
   const placeOrder = async () => {
+    const user = JSON.parse(
+  localStorage.getItem("dkUser")
+);
+console.log({
+  products: cartItems,
+  totalPrice,
+  userEmail: user?.email,
+});
   try {
     const response = await fetch(
       "https://dk-seed-store-backend.onrender.com/api/orders",
@@ -22,6 +30,7 @@ function Cart() {
         body: JSON.stringify({
           products: cartItems,
           totalPrice,
+           userEmail: user?.email,
         }),
       }
     );

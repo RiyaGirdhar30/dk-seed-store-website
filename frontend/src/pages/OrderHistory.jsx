@@ -3,16 +3,31 @@ import { useEffect, useState } from "react";
 function OrderHistory() {
   const [orders, setOrders] = useState([]);
 
-  useEffect(() => {
-    fetch("https://dk-seed-store-backend.onrender.com/api/orders")
-      .then((res) => res.json())
-      .then((data) => {
-        setOrders(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+ useEffect(() => {
+  const user = JSON.parse(
+    localStorage.getItem("dkUser")
+  );
+console.log(user);
+  fetch(
+    "https://dk-seed-store-backend.onrender.com/api/orders"
+  )
+    .then((res) => res.json())
+    .then((data) => {
+
+      const userOrders =
+        data.filter(
+          (order) =>
+            order.userEmail ===
+            user?.email
+        );
+
+      setOrders(userOrders);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+}, []);
 
   return (
     <div
