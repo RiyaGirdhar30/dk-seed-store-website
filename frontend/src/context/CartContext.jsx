@@ -14,9 +14,35 @@ const [cartItems, setCartItems] = useState(() => {
 
 const addToCart = (product) => {
   setCartItems((prev) => {
-    const updatedCart = [...prev, product];
-    console.log("Updated Cart:", updatedCart);
-    return updatedCart;
+    
+
+    console.log("Prev Cart:", prev);
+    console.log("Product Added:", product);
+
+    const existingProduct = prev.find(
+      (item) => item._id === product._id
+    );
+
+    if (existingProduct) {
+      const updatedCart = prev.map((item) =>
+        item._id === product._id
+          ? {
+              ...item,
+              quantity: (item.quantity || 1 )+ 1,
+            }
+          : item
+      );
+
+      return updatedCart;
+    }
+
+    return [
+      ...prev,
+      {
+        ...product,
+        quantity: 1,
+      },
+    ];
   });
 };
 
@@ -31,6 +57,10 @@ const addToCart = (product) => {
 };
 
 useEffect(() => {
+ console.log(
+  JSON.stringify(cartItems, null, 2)
+);
+
   localStorage.setItem(
     "dkCart",
     JSON.stringify(cartItems)

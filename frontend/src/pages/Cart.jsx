@@ -2,12 +2,15 @@ import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 
 function Cart() {
+
   const { cartItems, removeFromCart, clearCart,} = useContext(CartContext);
 
-  const totalPrice = cartItems.reduce(
-    (total, item) => total + item.price,
-    0
-  );
+const totalPrice = cartItems.reduce(
+  (total, item) =>
+    total +
+    item.price * (item.quantity || 1),
+  0
+);
 
   const placeOrder = async () => {
     const user = JSON.parse(
@@ -80,7 +83,16 @@ console.log({
               <div>
                 <h3>{item.name}</h3>
 
-                <p>₹{item.price}</p>
+               <p>Price: ₹{item.price}</p>
+
+<p>
+  Quantity: {item.quantity || 1}
+</p>
+
+<p>
+  Subtotal: ₹
+  {item.price * (item.quantity || 1)}
+</p>
 
                 <button
                   onClick={() => removeFromCart(index)}
