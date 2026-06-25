@@ -88,6 +88,22 @@ console.log(user);
                 order.orderDate
               ).toLocaleDateString()}
             </p>
+
+            <h4>Products:</h4>
+
+{order.products.map(
+  (product, index) => (
+    <p key={index}>
+      • {product.name}
+      {" × "}
+      {product.quantity || 1}
+      {" - ₹"}
+      {product.price *
+        (product.quantity || 1)}
+    </p>
+  )
+)}
+
           </div>
         ))
       )}
