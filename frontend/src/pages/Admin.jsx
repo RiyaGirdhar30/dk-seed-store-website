@@ -9,6 +9,7 @@ function Admin() {
   const [imageFile, setImageFile] = useState(null);
   const [rating, setRating] = useState("");
   const [discount, setDiscount] = useState("");
+  const [stock, setStock] = useState("");
   const [editingId, setEditingId] =
   useState(null);
 
@@ -77,7 +78,7 @@ const uploadImage = async () => {
           image:imageUrl,
           rating,
           discount,
-          stock: "In Stock",
+        stock: Number(stock),
         }),
       }
     );
@@ -96,6 +97,7 @@ const uploadImage = async () => {
     setImage("");
     setRating("");
     setDiscount("");
+    setStock("");
     setImageFile(null);
   } catch (error) {
     console.log(error);
@@ -139,7 +141,7 @@ const updateProduct = async () => {
           image:imageUrl,
           rating,
           discount,
-          stock: "In Stock",
+        stock: Number(stock),
         }),
       }
     );
@@ -154,6 +156,7 @@ const updateProduct = async () => {
     setImage("");
     setRating("");
     setDiscount("");
+    setStock("");
     setImageFile(null);
     fetchProducts();
   } catch (error) {
@@ -233,6 +236,15 @@ useEffect(() => {
 
       <br /><br />
 
+      <input
+  type="number"
+  placeholder="Stock"
+  value={stock}
+  onChange={(e) => setStock(e.target.value)}
+/>
+
+<br /><br />
+
       {editingId ? (
   <button onClick={updateProduct}>
     Update Product
@@ -279,6 +291,8 @@ useEffect(() => {
           setImage(product.image);
           setRating(product.rating);
           setDiscount(product.discount);
+          setStock(product.stock);
+          setImageFile(null);
         }}
       >
         Edit
