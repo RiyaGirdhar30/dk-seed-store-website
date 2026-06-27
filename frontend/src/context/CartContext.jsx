@@ -24,17 +24,26 @@ const addToCart = (product) => {
     );
 
     if (existingProduct) {
-      const updatedCart = prev.map((item) =>
-        item._id === product._id
-          ? {
-              ...item,
-              quantity: (item.quantity || 1 )+ 1,
-            }
-          : item
-      );
 
-      return updatedCart;
-    }
+  if (existingProduct.quantity >= product.stock) {
+    alert(
+      `Only ${product.stock} items are available in stock.`
+    );
+
+    return prev;
+  }
+
+  const updatedCart = prev.map((item) =>
+    item._id === product._id
+      ? {
+          ...item,
+          quantity: item.quantity + 1,
+        }
+      : item
+  );
+
+  return updatedCart;
+}
 
     return [
       ...prev,

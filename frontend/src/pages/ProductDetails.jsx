@@ -48,26 +48,65 @@ function ProductDetails() {
 
       <h2>₹{product.price}</h2>
 
+      {product.stock > 5 ? (
+  <p
+    style={{
+      color: "green",
+      fontWeight: "bold",
+    }}
+  >
+    ✅ In Stock
+  </p>
+) : product.stock > 0 ? (
+  <p
+    style={{
+      color: "orange",
+      fontWeight: "bold",
+    }}
+  >
+    ⚠️ Only {product.stock} left in stock
+  </p>
+) : (
+  <p
+    style={{
+      color: "red",
+      fontWeight: "bold",
+    }}
+  >
+    ❌ Out of Stock
+  </p>
+)}
+
       <p>
         Premium quality {product.name}
         with high germination rate.
       </p>
 
-      <button
-        onClick={() =>
-          addToCart(product)
-        }
-        style={{
-          padding: "12px 25px",
-          background: "#2e7d32",
-          color: "white",
-          border: "none",
-          borderRadius: "8px",
-          cursor: "pointer",
-        }}
-      >
-        Add To Cart
-      </button>
+     <button
+  onClick={() =>
+    addToCart(product)
+  }
+  disabled={product.stock === 0}
+  style={{
+    padding: "12px 25px",
+    background:
+      product.stock === 0
+        ? "gray"
+        : "#2e7d32",
+    color: "white",
+    border: "none",
+    borderRadius: "8px",
+    cursor:
+      product.stock === 0
+        ? "not-allowed"
+        : "pointer",
+  }}
+>
+  {product.stock === 0
+    ? "Out of Stock"
+    : "Add To Cart"}
+</button>
+
     </div>
   );
 }

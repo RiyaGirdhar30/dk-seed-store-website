@@ -101,7 +101,34 @@ const filteredProducts = products.filter((product) => {
 
 <p>⭐ {product.rating}</p>
 
-<p>{product.stock}</p>
+{product.stock > 5 ? (
+  <p
+    style={{
+      color: "green",
+      fontWeight: "bold",
+    }}
+  >
+    ✅ In Stock
+  </p>
+) : product.stock > 0 ? (
+  <p
+    style={{
+      color: "orange",
+      fontWeight: "bold",
+    }}
+  >
+    ⚠️ Only {product.stock} left in stock
+  </p>
+) : (
+  <p
+    style={{
+      color: "red",
+      fontWeight: "bold",
+    }}
+  >
+    ❌ Out of Stock
+  </p>
+)}
 
 <p
   style={{
