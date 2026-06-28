@@ -22,6 +22,43 @@ console.log({
   userEmail: user?.email,
 });
   try {
+
+    const razorpayResponse = await fetch(
+  "https://dk-seed-store-backend.onrender.com/api/payment/create-order",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      amount: totalPrice,
+    }),
+  }
+);
+
+const razorpayOrder = await razorpayResponse.json();
+
+console.log(razorpayOrder);
+
+const options = {
+  key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+
+  amount: razorpayOrder.amount,
+
+  currency: razorpayOrder.currency,
+
+  name: "DK Seed Store",
+
+  description: "Seed Purchase",
+
+  order_id: razorpayOrder.id,
+};
+
+const paymentObject =
+  new window.Razorpay(options);
+
+paymentObject.open();
+
     const response = await fetch(
       "https://dk-seed-store-backend.onrender.com/api/orders",
       {
