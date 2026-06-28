@@ -52,36 +52,45 @@ const options = {
   description: "Seed Purchase",
 
   order_id: razorpayOrder.id,
+
+ handler: async function (response) {
+
+  console.log(response);
+
+  const orderResponse = await fetch(
+    "https://dk-seed-store-backend.onrender.com/api/orders",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        products: cartItems,
+        totalPrice,
+        userEmail: user?.email,
+      }),
+    }
+  );
+
+  const orderData = await orderResponse.json();
+
+  if (!orderResponse.ok) {
+  alert("Payment succeeded, but saving the order failed.");
+  return;
+}
+
+  console.log(orderData);
+
+  alert("Payment Successful! Order Placed Successfully ✅");
+
+  clearCart();
+},
 };
 
 const paymentObject =
   new window.Razorpay(options);
 
 paymentObject.open();
-
-    const response = await fetch(
-      "https://dk-seed-store-backend.onrender.com/api/orders",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
-        body: JSON.stringify({
-          products: cartItems,
-          totalPrice,
-           userEmail: user?.email,
-        }),
-      }
-    );
-
-    const data = await response.json();
-
-    console.log(data);
-
-    alert("Order Placed Successfully ✅");
-
-    clearCart();
   } catch (error) {
     console.log(error);
   }
