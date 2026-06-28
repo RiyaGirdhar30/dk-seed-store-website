@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+dotenv.config();
 const connectDB = require("./config/db");
 const productRoutes =
   require("./routes/productRoutes");
@@ -7,7 +8,10 @@ const productRoutes =
 const orderRoutes =
   require("./routes/orderRoutes");
 
-dotenv.config();
+const paymentRoutes = require("./routes/paymentRoutes");
+
+console.log(process.env.RAZORPAY_KEY_ID);
+console.log(process.env.RAZORPAY_KEY_SECRET);
 
 connectDB();
 
@@ -22,6 +26,8 @@ app.use(cors());
 app.use("/api/products", productRoutes);
 
 app.use("/api/orders", orderRoutes);
+
+app.use("/api/payment", paymentRoutes);
 
 app.get("/", (req, res) => {
   res.send("DK Seed Store Backend Running 🚀");
