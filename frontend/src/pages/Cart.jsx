@@ -82,7 +82,7 @@ const options = {
   console.log(orderData);
 
  const stockResponse =await fetch(
-  "http://localhost:7000/api/products/update-stock",
+  "https://dk-seed-store-backend.onrender.com/api/products/update-stock",
   {
     method: "PUT",
     headers: {
