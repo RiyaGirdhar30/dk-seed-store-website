@@ -83,6 +83,51 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.put("/update-stock", async (req, res) => {
+  console.log("========== UPDATE STOCK ==========");
+  console.log(req.body);
+
+  try {
+    const { products } = req.body;
+
+    for (const item of products) {
+      console.log("Item:", item);
+
+      const product = await Product.findById(item._id);
+
+      console.log("Found Product:", product);
+
+      if (!product) {
+        console.log("Product not found!");
+        continue;
+      }
+
+      console.log("Old Stock:", product.stock);
+      console.log("Purchased Quantity:", item.quantity);
+
+      product.stock =
+        product.stock - (item.quantity || 1);
+
+      console.log("New Stock:", product.stock);
+
+      await product.save();
+
+      console.log("Saved Successfully");
+    }
+
+    res.json({
+      message: "Stock Updated Successfully",
+    });
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
 router.put("/:id", async (req, res) => {
   try {
     const updatedProduct =

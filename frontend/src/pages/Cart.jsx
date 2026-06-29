@@ -81,6 +81,23 @@ const options = {
 
   console.log(orderData);
 
+ const stockResponse =await fetch(
+  "http://localhost:7000/api/products/update-stock",
+  {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      products: cartItems,
+    }),
+  }
+);
+
+const stockData = await stockResponse.json();
+
+console.log("Stock Response:", stockData);
+
   alert("Payment Successful! Order Placed Successfully ✅");
 
   clearCart();
