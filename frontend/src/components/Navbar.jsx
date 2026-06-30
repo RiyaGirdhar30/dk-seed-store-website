@@ -74,12 +74,7 @@ const handleLogout = () => {
       </ul>
 
    {user ? (
- <div
-  style={{
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-  }}
+ <div className="user-info"
 >
   <h3>
     Hello, {user.name || user.email} 👋
