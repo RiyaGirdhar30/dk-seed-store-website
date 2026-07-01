@@ -37,32 +37,18 @@ const filteredProducts = products.filter((product) => {
   return (
     <div className="products-page">
       <h1>Our Seed Collection</h1>
-
-      <input
-        type="text"
-        placeholder="Search Seeds..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        style={{
-          padding: "12px",
-          width: "300px",
-          borderRadius: "8px",
-          border: "1px solid #ccc",
-          display: "block",
-          margin: "0 auto 30px",
-        }}
-      />
+<input
+  className="search-box"
+  type="text"
+  placeholder="Search Seeds..."
+  value={searchTerm}
+  onChange={(e) => setSearchTerm(e.target.value)}
+/>
 
       {/* Category Buttons */}
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "10px",
-          marginBottom: "30px",
-        }}
-      >
+     <div className="filter-buttons">
+      
         <button
         className="filter-btn"
           onClick={() => setSelectedCategory("All")}
