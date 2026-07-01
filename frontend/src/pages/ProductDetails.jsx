@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
+import "../styles/ProductDetails.css";
 import { CartContext } from "../context/CartContext";
 
 function ProductDetails() {
@@ -29,20 +30,14 @@ function ProductDetails() {
   }
 
   return (
-    <div
-      style={{
-        padding: "50px",
-        textAlign: "center",
-      }}
-    >
-      <img
-        src={product.image}
-        alt={product.name}
-        style={{
-          width: "400px",
-          borderRadius: "15px",
-        }}
-      />
+
+  <div className="product-details">
+
+  <img
+  className="product-image"
+  src={product.image}
+  alt={product.name}
+/>
 
       <h1>{product.name}</h1>
 
@@ -82,26 +77,22 @@ function ProductDetails() {
         with high germination rate.
       </p>
 
-     <button
-  onClick={() =>
-    addToCart(product)
-  }
+<button
+  className="cart-btn"
+  onClick={() => addToCart(product)}
   disabled={product.stock === 0}
   style={{
-    padding: "12px 25px",
     background:
       product.stock === 0
         ? "gray"
         : "#2e7d32",
-    color: "white",
-    border: "none",
-    borderRadius: "8px",
     cursor:
       product.stock === 0
         ? "not-allowed"
         : "pointer",
   }}
 >
+  
   {product.stock === 0
     ? "Out of Stock"
     : "Add To Cart"}
