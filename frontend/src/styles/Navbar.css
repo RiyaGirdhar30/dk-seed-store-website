@@ -16,8 +16,11 @@
 }
 
 .navbar ul{
+    list-style: none;
     display:flex;
     gap:30px;
+    padding: 0;
+    margin: 0;
 }
 
 .navbar a{
@@ -89,6 +92,10 @@ flex-wrap:wrap;
 
 .user-info{
     flex-direction:column;
+}
+
+.navbar ul {
+    list-style: none;
 }
 
 }
