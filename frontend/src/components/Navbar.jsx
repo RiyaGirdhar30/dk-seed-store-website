@@ -9,6 +9,8 @@ function Navbar() {
 
   const [user, setUser] = useState(null);
 
+  const [menuOpen, setMenuOpen] = useState(false);
+
 useEffect(() => {
   const storedUser =
     JSON.parse(localStorage.getItem("dkUser"));
@@ -17,6 +19,7 @@ useEffect(() => {
 }, []);
 
 const handleLogout = () => {
+   setMenuOpen(false);
   localStorage.removeItem("dkUser");
 
   window.location.href = "/";
@@ -25,40 +28,58 @@ const handleLogout = () => {
   return (
     <nav className="navbar">
 
-      <h2>🌱 DK Seed Store</h2>
+     <Link
+  to="/"
+  onClick={() => setMenuOpen(false)}
+  style={{ textDecoration: "none" }}
+>
+  <h2>🌱 DK Seed Store</h2>
+</Link>
 
-      <ul>
+      <div
+  className="menu-icon"
+  onClick={() => setMenuOpen(!menuOpen)}
+>
+  {menuOpen ? "✕" : "☰"}
+</div>
+
+      <ul className={menuOpen ? "nav-links active" : "nav-links"}>
 
         <li>
-          <Link to="/">Home</Link>
+        <Link
+  to="/"
+  onClick={() => setMenuOpen(false)}
+>
+  Home
+</Link>
         </li>
 
         <li>
-          <Link to="/products">Products</Link>
+          <Link to="/products" onClick={()=>setMenuOpen(false)}>Products</Link>
         </li>
 
         <li>
-          <Link to="/about">About</Link>
+          <Link to="/about" onClick={()=>setMenuOpen(false)}>About</Link>
         </li>
 
         <li>
-          <Link to="/contact">Contact</Link>
+          <Link to="/contact" onClick={()=>setMenuOpen(false)}>Contact</Link>
         </li>
 
         <li>
-        <Link to="/cart">Cart ({cartItems.length})</Link>
+        <Link to="/cart" onClick={()=>setMenuOpen(false)}>Cart ({cartItems.length})</Link>
         </li>
 
        {user?.isAdmin && (
   <>
     <li>
-      <Link to="/dashboard">
+      <Link to="/dashboard" onClick={()=>setMenuOpen(false)}>
         Dashboard
       </Link>
     </li>
 
     <li>
-      <Link to="/orders">
+      <Link to="/orders" onClick={()=>setMenuOpen(false)}>
         Orders
       </Link>
     </li>
@@ -66,16 +87,22 @@ const handleLogout = () => {
 )}
 
         <li>
-  <Link to="/order-history">
+  <Link to="/order-history" onClick={()=>setMenuOpen(false)}>
     My Orders
   </Link>
 </li>
 
       </ul>
 
-   {user ? (
- <div className="user-info"
->
+  {user ? (
+  <div
+    className={
+      menuOpen
+        ? "user-info active"
+        : "user-info"
+    }
+  >
+
   <h3>
     Hello, {user.name || user.email} 👋
   </h3>
@@ -94,7 +121,7 @@ const handleLogout = () => {
   </button>
 </div>
 ) : (
-  <Link to="/login">
+  <Link to="/login" onClick={()=>setMenuOpen(false)}>
     <button>Login</button>
   </Link>
 )}
